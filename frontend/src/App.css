@@ -1,0 +1,230 @@
+/* ===== GLOBAL ROOT LAYOUT ===== */
+#root {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  text-align: center;
+  min-height: 100vh;
+  background: #f0f4ff;
+}
+
+/* ===== APP TITLE ===== */
+.appTitle {
+  font-size: 2.6rem;
+  font-weight: 900;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(90deg, #2563eb, #4f46e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== FILTER PANEL ===== */
+.filterPanel {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  background: linear-gradient(90deg, #2563eb, #dc2626, #16a34a);
+  padding: 12px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.filterBtn {
+  background: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #2563eb;
+  transition: 0.2s;
+}
+
+.filterBtn:hover {
+  background: #dbeafe;
+  transform: translateY(-2px);
+}
+
+.activeFilter {
+  background: #111827;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* ===== FORM CARD ===== */
+.formCard {
+  background: white;
+  padding: 22px;
+  border-radius: 22px;
+  box-shadow: 0 6px 18px rgba(37,99,235,0.15);
+  margin-bottom: 30px;
+  border: 2px solid #2563eb;
+}
+
+.formRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 14px 0;
+}
+
+/* Priority selector */
+.priorityBox, .dateBox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #dbeafe;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  border: 1.5px solid #93c5fd;
+}
+
+.priorityBox select, .dateBox input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-weight: 600;
+  color: #1e40af;
+  cursor: pointer;
+}
+
+/* ===== INPUTS ===== */
+.inputMain {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: 2px solid #93c5fd;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #eff6ff;
+  transition: 0.2s;
+}
+
+.inputMain:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.25);
+}
+
+.descBox {
+  min-height: 110px;
+}
+
+/* ===== TODO GRID LAYOUT ===== */
+.todoGrid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr;
+  padding: 10px;
+}
+
+@media (min-width: 768px) {
+  .todoGrid { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1200px) {
+  .todoGrid { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* ===== TODO CARD DESIGN ===== */
+.todoCard {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 20px;
+  border-left: 6px solid #2563eb;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: 0.2s;
+}
+
+.todoCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(37,99,235,0.18);
+}
+
+/* PRIORITY COLORS */
+.todoCard.low {
+  border-left-color: #3b82f6;
+  background: #dbeafe;
+}
+.todoCard.medium {
+  border-left-color: #f59e0b;
+  background: #fef3c7;
+}
+.todoCard.high {
+  border-left-color: #dc2626;
+  background: #fee2e2;
+}
+
+/* Completed text style */
+.doneText {
+  text-decoration: line-through;
+  color: #6b7280;
+  opacity: 0.7;
+}
+
+/* ===== BADGES ===== */
+.badgeRow {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.badge {
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge.low { background: #3b82f6; color: white; }
+.badge.medium { background: #f59e0b; color: white; }
+.badge.high { background: #dc2626; color: white; }
+.badge.due { background: #16a34a; color: white; }
+
+/* ===== CARD BUTTONS ===== */
+.cardActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.cardBtn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px solid #2563eb;
+  background: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  color: #2563eb;
+}
+
+.cardBtn:hover {
+  background: #2563eb;
+  color: white;
+}
+
+.cardBtn.delete {
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
+.cardBtn.delete:hover {
+  background: #dc2626;
+  color: white;
+}
+
+/* ===== ERROR BANNER ===== */
+.errorBanner {
+  background: #dc2626;
+  color: white;
+  padding: 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
