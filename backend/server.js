@@ -26,8 +26,13 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
+<<<<<<< HEAD
 // Start Server on port 5000 as required
 const PORT = 5000;
+=======
+// Start Server on port 3000 as required
+const PORT = 3000;
+>>>>>>> bb406d73025504f486f2a6770dc09530c5c2833c
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
