@@ -5,21 +5,21 @@
   padding: 2rem 1rem;
   text-align: center;
   min-height: 100vh;
-<<<<<<< HEAD
+
   background: linear-gradient(135deg, #e0f2ff, #f3e8ff, #ffe4e6);
-=======
+
   background: #f0f4ff;
->>>>>>> bb406d73025504f486f2a6770dc09530c5c2833c
+
 }
 
 /* ===== APP TITLE ===== */
 .appTitle {
-<<<<<<< HEAD
+
   font-size: 3rem;
   font-weight: 900;
   margin-bottom: 1.8rem;
   background: linear-gradient(90deg, #2563eb, #dc2626, #7c3aed, #2563eb);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -1px;
 }
@@ -303,12 +303,12 @@
 
 .filterBtn:active {
   transform: scale(0.96);
-=======
+
   font-size: 2.6rem;
   font-weight: 900;
   margin-bottom: 1.2rem;
   background: linear-gradient(90deg, #2563eb, #4f46e5);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -338,19 +338,18 @@
 .filterBtn:hover {
   background: #dbeafe;
   transform: translateY(-2px);
->>>>>>> bb406d73025504f486f2a6770dc09530c5c2833c
 }
 
 .activeFilter {
   background: #111827;
   color: white;
-<<<<<<< HEAD
+
   box-shadow: 0 2px 6px rgba(0,0,0,0.18);
 }
 
 .activeFilter:hover {
   background: #1f2937;
-=======
+
   transform: scale(1.05);
 }
 
@@ -529,5 +528,5 @@
   font-weight: 700;
   margin-bottom: 16px;
   font-size: 0.9rem;
->>>>>>> bb406d73025504f486f2a6770dc09530c5c2833c
+
 }

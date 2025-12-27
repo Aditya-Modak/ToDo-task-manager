@@ -20,7 +20,7 @@ const todoSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-<<<<<<< HEAD
+
     priority: {
       type: String,
       enum: ["low", "medium", "high"],
@@ -39,8 +39,7 @@ const todoSchema = new mongoose.Schema(
       enum: ["general", "work", "personal", "urgent"],
       default: "general",
     },
-=======
->>>>>>> bb406d73025504f486f2a6770dc09530c5c2833c
+
   },
   { timestamps: true }
 );
