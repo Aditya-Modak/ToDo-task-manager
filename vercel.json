@@ -1,9 +1,13 @@
 {
   "version": 2,
   "builds": [
-    { "src": "frontend/package.json", "use": "@vercel/static-build", "config": { "distDir": "frontend/dist" } }
+    { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }
+  ],
+  "rewrites": [
+    { "source": "/api/todos/(.*)", "destination": "https://todo-backend-euoz.onrender.com/api/todos/$1" }
+  
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "frontend/dist/$1" }
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }

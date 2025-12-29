@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTrash, FaCheck, FaUndo, FaSearch, FaSyncAlt, FaEdit, FaCalendarAlt, FaFlag } from "react-icons/fa";
-import { fetchTodos, createTodo, removeTodo, updateTodo, toggleTodo } from "./services/api.js";
+import { fetchTodos,createTodo, removeTodo, updateTodo, toggleTodo } from "./services/api.js";
 import "./App.css";
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/todos";
+//const API_URL = "http://localhost:3000/api/todos";
 const BACKUP_KEY = "todo_backup";
 
 export default function App() {
@@ -29,15 +29,10 @@ export default function App() {
  const loadTodos = async () => {
   setLoading(true);
   try {
-    const res = await getTodos();
-    if (Array.isArray(res.data)) {
-      setTodos(res.data);
-    } else {
-      setTodos([]);
-    }
+    const res = await fetchTodos();
+    setTodos(res.data ?? []); // safe unpack
     setError("");
-  } catch (err) {
-    console.error(err);
+  } catch {
     setError("Failed to load todos");
     setTodos([]);
   } finally {
@@ -80,22 +75,15 @@ export default function App() {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await removeTodo(id);
-      const updated = todos.filter(t => t._id !== id);
-      setTodos(updated);
-      localStorage.setItem(BACKUP_KEY, JSON.stringify(updated));
-    } catch {
-      setError("Failed to delete.");
-    }
+ const handleDelete = async (id) => {
+  try {
+    await removeTodo(id);
+    setTodos(todos.filter(t => t._id !== id));
+    setError("");
+  } catch {
+    setError("Delete failed");
+  }
 
-    try {
-      await axios.delete(`${API_URL}/${id}`);
-      setTodos(todos.filter((t) => t._id !== id));
-    } catch {
-      setError("Delete failed");
-    }
   };
 
   const openEdit = (todo) => {
@@ -119,34 +107,37 @@ export default function App() {
     }
   };
 
-  const handleToggle = async (todo) => {
-    try {
-      const updated = await toggleTodo(todo._id, todo.completed);
-      setTodos(todos.map(t => t._id === todo._id ? updated : t));
-    } catch {
-      setError("Failed to toggle status.");
-    }
+  const handleToggle = async (todoId) => {
+  if (!todoId) {
+    console.error("Toggle received invalid ID:", todoId);
+    setError("Invalid task ID");
+    return;
+  }
 
-    try {
-      const res = await axios.patch(`${API_URL}/${todo._id}`, { completed: !todo.completed });
-      setTodos(todos.map(t => t._id === todo._id ? res.data : t));
-    } catch {
-      setError("Update failed");
-    }
-  };
+  try {
+    const res = await toggleTodo(todoId);
+    setTodos(todos.map(t => t._id === todoId ? res.data : t));
+  } catch (err) {
+    console.error("Toggle failed:", err.response?.data || err.message);
+    setError("Failed to update status");
+  }
+};
 
-  const filteredTodos = todos.filter(todo => {
-    const matchText =
-      todo.title.toLowerCase().includes(query.toLowerCase()) ||
-      (todo.description || "").toLowerCase().includes(query.toLowerCase());
+  const filteredTodos = (todos ?? []).filter(todo => {
+  const t = todo?.title ?? "";
+  const d = todo?.description ?? "";
 
-    const matchStatus =
-      filter === "all" ? true :
-      filter === "active" ? !todo.completed :
-      todo.completed;
+  const matchText = 
+    t.toLowerCase().includes(query.toLowerCase()) ||
+    d.toLowerCase().includes(query.toLowerCase());
 
-    return matchText && matchStatus;
-  });
+  const matchStatus =
+    filter === "all" ? true :
+    filter === "active" ? !todo.completed :
+    todo.completed;
+
+  return matchText && matchStatus;
+});
 
   if (loading) return <div className="container text-gray-500 text-lg font-semibold">Loading tasks…</div>;
 
@@ -242,7 +233,7 @@ export default function App() {
               {/* ACTIONS */}
               <div className="cardActions">
                 <button onClick={() => openEdit(todo)} className="cardBtn"><FaEdit/> Edit</button>
-                <button onClick={() => handleToggle(todo)} className="cardBtn">
+                <button onClick={() => handleToggle(todo._id)} className="cardBtn">
                   {todo.completed ? <FaUndo/> : <FaCheck/>} {todo.completed ? "Undo" : "Complete"}
                 </button>
                 <button onClick={() => handleDelete(todo._id)} className="cardBtn delete"><FaTrash/> Delete</button>
