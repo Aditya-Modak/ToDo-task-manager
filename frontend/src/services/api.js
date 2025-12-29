@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000/api/todos" });
+const API = axios.create({ baseURL: "https://todo-backend-euoz.onrender.com" });
+
 
 // GET all todos
 export const fetchTodos = async () => {
