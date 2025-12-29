@@ -1,40 +1,14 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "https://todo-backend-euoz.onrender.com" });
+const API = axios.create({
+  baseURL: "https://todo-backend-euoz.onrender.com/api/todos",
+  timeout: 15000,
+});
 
-
-// GET all todos
-export const fetchTodos = async () => {
-  const res = await API.get("/");
-  return res.data;
-};
-
-// CREATE new todo
-export const createTodo = async (todo) => {
-  const res = await API.post("/", {
-    title: todo.title,
-    description: todo.description || "",
-    completed: false,
-  });
-  return res.data;
-};
-
-// UPDATE todo
-export const updateTodo = async (id, data) => {
-  const res = await API.patch(`/${id}`, data);
-  return res.data;
-};
-
-// DELETE todo
-export const removeTodo = async (id) => {
-  await API.delete(`/${id}`);
-  return id;
-};
-
-// TOGGLE complete/incomplete
-export const toggleTodo = async (id, currentStatus) => {
-  const res = await API.patch(`/${id}`, { completed: !currentStatus });
-  return res.data;
-};
+export const getTodos = () => API.get("/");
+export const addTodo = (todo) => API.post("/", todo);
+export const editTodo = (id, data) => API.patch(`/${id}`, data);
+export const deleteTodo = (id) => API.delete(`/${id}`);
+export const toggleTodo = (id) => API.patch(`/${id}/toggle`);
 
 export default API;

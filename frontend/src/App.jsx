@@ -26,28 +26,25 @@ export default function App() {
     loadTodos();
   }, []);
 
-  const loadTodos = async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const data = await fetchTodos();
-      setTodos(data);
-      localStorage.setItem(BACKUP_KEY, JSON.stringify(data));
-    } catch {
-      setError("Backend not reachable. Loaded backup if available.");
-      const backup = localStorage.getItem(BACKUP_KEY);
-      if (backup) setTodos(JSON.parse(backup));
-    }
-
-    try {
-      const res = await axios.get(API_URL);
+ const loadTodos = async () => {
+  setLoading(true);
+  try {
+    const res = await getTodos();
+    if (Array.isArray(res.data)) {
       setTodos(res.data);
-    } catch {
-      setError("Failed to connect to backend");
-    } finally {
-      setLoading(false);
+    } else {
+      setTodos([]);
     }
-  };
+    setError("");
+  } catch (err) {
+    console.error(err);
+    setError("Failed to load todos");
+    setTodos([]);
+  } finally {
+    setLoading(false);
+  }
+};
+;
 
   const handleAdd = async () => {
     if (!title.trim()) {
